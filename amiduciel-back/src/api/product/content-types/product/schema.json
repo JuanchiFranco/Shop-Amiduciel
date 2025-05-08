@@ -46,6 +46,12 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::review.review",
+      "mappedBy": "products"
     }
   }
 }
