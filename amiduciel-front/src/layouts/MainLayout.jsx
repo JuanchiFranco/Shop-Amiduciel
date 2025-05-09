@@ -4,6 +4,7 @@ import Footer from '../components/Footer/Footer';
 import NewsSection from '../pages/NewsSection';
 import Home from '../pages/Home';
 import AboutSection from '../pages/AboutSection';
+import ContactSection from '../pages/ContactSection';
 
 
 const MainLayout = ({ children }) => {
@@ -14,6 +15,7 @@ const MainLayout = ({ children }) => {
                 <Home />
                 <NewsSection />
                 <AboutSection />
+                <ContactSection />
             </main>
             <Footer />
         </div>
