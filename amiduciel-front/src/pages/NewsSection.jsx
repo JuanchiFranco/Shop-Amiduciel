@@ -1,5 +1,6 @@
 import React from 'react';
 import floresImg from '../assets/products/flores.jpg';
+import newsImg from '../assets/news.jpg'
 
 const products = [
     {
@@ -30,29 +31,43 @@ const products = [
 
 const NewsSection = () => {
     return (
-        <section id="news" className="p-10">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">Recién Agregados</h1>
-            <div className="flex flex-wrap justify-center gap-5">
-                {products.map((product) => (
-                    <div
-                        key={product.id}
-                        className="bg-white border border-gray-300 rounded-lg p-4 w-52 text-center shadow-sm hover:shadow-lg transition-shadow duration-300"
-                    >
-                        <img
-                            src={product.image}
-                            alt={product.name}
-                            className="w-full rounded-lg mb-4"
-                        />
-                        <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-                        <p className="text-gray-600 mb-2">{product.descripcion}</p>
-                        <p className="text-gray-700 font-medium">
-                            <strong>Patrón:</strong> {product.patron}
-                        </p>
-                        <p className="text-gray-800 font-bold mt-2">
-                            <strong>Precio:</strong> ${product.price.toFixed(2)}
-                        </p>
-                    </div>
-                ))}
+        <section id="news">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6" >
+                <div className="flex items-center justify-center">
+                    <h1 className="text-4xl font-bold text-gray-800 text-center md:text-left">
+                        Recién Agregados
+                    </h1>
+                </div>
+                <div 
+                    className="flex flex-wrap justify-center gap-5 bg-cover bg-center p-10" 
+                    style={{
+                        backgroundImage: `url(${newsImg})`,
+                    }}
+                >
+                    {products.map((product) => (
+                        <div
+                            key={product.id}
+                            className="bg-white border border-gray-300 rounded-lg p-4 w-52 text-center shadow-sm hover:shadow-lg transition-shadow duration-300"
+                            style={{
+                                filter: "brightness(1)",
+                            }}
+                        >
+                            <img
+                                src={product.image}
+                                alt={product.name}
+                                className="w-full rounded-lg mb-4"
+                            />
+                            <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
+                            <p className="text-gray-600 mb-2">{product.descripcion}</p>
+                            <p className="text-gray-700 font-medium">
+                                <strong>Patrón:</strong> {product.patron}
+                            </p>
+                            <p className="text-gray-800 font-bold mt-2">
+                                <strong>Precio:</strong> ${product.price.toFixed(2)}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );
