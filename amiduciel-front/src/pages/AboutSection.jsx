@@ -13,7 +13,7 @@ const AboutSection = () => {
     };
 
     return (
-        <section id="about" className="flex flex-col items-center justify-center bg-cyan-50">
+        <section id="about" className="flex flex-col items-center justify-center bg-cyan-100 min-h-screen">
             <div className="container mx-auto px-4 text-center py-8">
                 <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">Sobre Nosotros</h1>
                 <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">

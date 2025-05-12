@@ -33,7 +33,7 @@ const NewsSection = () => {
     return (
         <section
         id="news"
-        className="flex flex-col items-center justify-center bg-cyan-50"
+        className="flex flex-col items-center justify-center bg-cyan-50 min-h-screen"
         >
             <div className="container mx-auto px-4 text-center py-8">
                 <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
