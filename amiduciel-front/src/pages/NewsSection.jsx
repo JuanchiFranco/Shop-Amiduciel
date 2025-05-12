@@ -31,45 +31,46 @@ const products = [
 
 const NewsSection = () => {
     return (
-        <section id="news">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6" >
-                <div className="flex flex-col items-center justify-center">
-                    <h1 className="text-4xl font-bold text-gray-800 text-center md:text-left">
-                        Recién Agregados
-                    </h1>
-                    <p className="text-gray-600 text-center md:text-left mt-2">
-                        Descubre los productos más recientes que hemos añadido a nuestra colección. ¡No te los pierdas!
+        <section
+        id="news"
+        className="flex flex-col items-center justify-center bg-cyan-50"
+        >
+            <div className="container mx-auto px-4 text-center py-8">
+                <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
+                Recién Agregados
+                </h2>
+                <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
+                Descubre los productos más recientes que hemos añadido a nuestra colección. <br/>¡No te los pierdas!
+                </p>
+            </div>
+
+            <div className="relative mt-6 w-full">
+                <div
+                className="absolute inset-0 bg-cover bg-center opacity-50"
+                style={{ backgroundImage: `url(${newsImg})` }}
+                />
+
+                <div className="relative flex flex-wrap justify-center gap-5 p-10">
+                {products.map((product) => (
+                    <div
+                    key={product.id}
+                    className="bg-white border border-gray-300 rounded-lg p-4 w-52 text-center shadow-sm hover:shadow-lg transition-shadow duration-300"
+                    >
+                    <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full rounded-lg mb-4"
+                    />
+                    <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
+                    <p className="text-gray-600 mb-2">{product.descripcion}</p>
+                    <p className="text-gray-700 font-medium">
+                        <strong>Patrón:</strong> {product.patron}
                     </p>
-                </div>
-                <div 
-                    className="flex flex-wrap justify-center gap-5 bg-cover bg-center p-10" 
-                    style={{
-                        backgroundImage: `url(${newsImg})`,
-                    }}
-                >
-                    {products.map((product) => (
-                        <div
-                            key={product.id}
-                            className="bg-white border border-gray-300 rounded-lg p-4 w-52 text-center shadow-sm hover:shadow-lg transition-shadow duration-300"
-                            style={{
-                                filter: "brightness(1)",
-                            }}
-                        >
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full rounded-lg mb-4"
-                            />
-                            <h2 className="text-lg font-semibold mb-2">{product.name}</h2>
-                            <p className="text-gray-600 mb-2">{product.descripcion}</p>
-                            <p className="text-gray-700 font-medium">
-                                <strong>Patrón:</strong> {product.patron}
-                            </p>
-                            <p className="text-gray-800 font-bold mt-2">
-                                <strong>Precio:</strong> ${product.price.toFixed(2)}
-                            </p>
-                        </div>
-                    ))}
+                    <p className="text-gray-800 font-bold mt-2">
+                        <strong>Precio:</strong> ${product.price.toFixed(2)}
+                    </p>
+                    </div>
+                ))}
                 </div>
             </div>
         </section>
