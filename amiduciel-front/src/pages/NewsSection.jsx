@@ -36,9 +36,9 @@ const NewsSection = () => {
         className="flex flex-col items-center justify-center bg-cyan-50"
         >
             <div className="container mx-auto px-4 text-center py-8">
-                <h2 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
+                <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900">
                 Recién Agregados
-                </h2>
+                </h1>
                 <p className="mt-3 text-lg text-gray-600 max-w-2xl mx-auto">
                 Descubre los productos más recientes que hemos añadido a nuestra colección. <br/>¡No te los pierdas!
                 </p>
