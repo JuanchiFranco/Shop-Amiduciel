@@ -7,6 +7,14 @@ module.exports = {
             config: {
                 auth: false
             }
+        },
+        {
+            method: 'GET',
+            path: '/new-products',
+            handler: 'product.findNewProducts',
+            config: {
+                auth: false
+            }
         }
     ]
 }
