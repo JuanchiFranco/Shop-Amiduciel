@@ -1,35 +1,22 @@
 import React from 'react';
-import floresImg from '../assets/products/flores.jpg';
-import newsImg from '../assets/news.jpg'
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const products = [
-    {
-        id: 1,
-        name: 'Producto 1',
-        price: 19.99,
-        descripcion: 'Descripción del producto 1',
-        patron: 'Patrón 1',
-        image: floresImg,
-    },
-    {
-        id: 2,
-        name: 'Producto 2',
-        price: 29.99,
-        descripcion: 'Descripción del producto 2',
-        patron: 'Patrón 2',
-        image: floresImg,
-    },
-    {
-        id: 3,
-        name: 'Producto 3',
-        price: 39.99,
-        descripcion: 'Descripción del producto 3',
-        patron: 'Patrón 3',
-        image: floresImg,
-    },
-];
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+
+import { Pagination, Navigation } from 'swiper/modules';
+import '../styles/swiper-custom.css';
+
+import newsImg from '../assets/news.jpg'
+import ProductCard from '../components/ProductCard';
+
+import { useNewProducts } from '../hooks/useProducts';
 
 const NewsSection = () => {
+    const { newProducts, loading, error } = useNewProducts();
+    
     return (
         <section
         id="news"
@@ -50,27 +37,43 @@ const NewsSection = () => {
                 style={{ backgroundImage: `url(${newsImg})` }}
                 />
 
-                <div className="relative flex flex-wrap justify-center gap-5 p-10">
-                {products.map((product) => (
-                    <div
-                    key={product.id}
-                    className="bg-white border border-gray-300 rounded-lg p-4 w-52 text-center shadow-sm hover:shadow-lg transition-shadow duration-300"
-                    >
-                    <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full rounded-lg mb-4"
-                    />
-                    <h3 className="text-lg font-semibold mb-2">{product.name}</h3>
-                    <p className="text-gray-600 mb-2">{product.descripcion}</p>
-                    <p className="text-gray-700 font-medium">
-                        <strong>Patrón:</strong> {product.patron}
-                    </p>
-                    <p className="text-gray-800 font-bold mt-2">
-                        <strong>Precio:</strong> ${product.price.toFixed(2)}
-                    </p>
-                    </div>
-                ))}
+                <div className="relative px-10 pt-16 pb-20 max-w-6xl mx-auto">
+                    {loading && <p className="text-lg text-gray-600 text-center">Cargando productos...</p>}
+                    {error && <p className="text-lg text-red-600 text-center">Error al cargar productos: {error.message}</p>}
+
+                    {!loading && !error && (
+                        <Swiper
+                        slidesPerView={1}
+                        spaceBetween={30}
+                        loop={true}
+                        pagination={{
+                            clickable: true,
+                        }}
+                        navigation={true}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            },
+                        }}
+                        className="mySwiper w-full h-full pb-12"
+                        modules={[Pagination, Navigation]}
+                        >
+                        {newProducts.map((product) => (
+                            <SwiperSlide key={product.id} className="flex justify-center items-center">
+                                <div className="flex justify-center items-stretch h-full p-4">
+                                    <div className="w-full h-full">
+                                        <ProductCard product={product} />
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                        </Swiper>
+                    )}
                 </div>
             </div>
         </section>
