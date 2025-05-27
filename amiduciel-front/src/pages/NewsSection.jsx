@@ -36,13 +36,13 @@ const NewsSection = () => {
                 style={{ backgroundImage: `url(${newsImg})` }}
                 />
 
-                <div className="relative p-10">
+                <div className="relative p-10 max-w-6xl mx-auto">
                     {loading && <p className="text-lg text-gray-600 text-center">Cargando productos...</p>}
                     {error && <p className="text-lg text-red-600 text-center">Error al cargar productos: {error.message}</p>}
 
                     {!loading && !error && (
                         <Swiper
-                        slidesPerView={1}
+                        slidesPerView={3}
                         spaceBetween={30}
                         loop={true}
                         pagination={{

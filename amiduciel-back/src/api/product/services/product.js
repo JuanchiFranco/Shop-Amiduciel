@@ -51,7 +51,7 @@ module.exports = {
                     orderBy: {
                         createdAt: 'desc'
                     },
-                    limit: 3,
+                    limit: 9,
                 }
             );
 
