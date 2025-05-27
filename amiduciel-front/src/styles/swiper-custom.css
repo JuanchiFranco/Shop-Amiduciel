@@ -19,3 +19,41 @@
   opacity: 1;
   background-color: #3a82bc;
 }
+
+/* Navigation buttons styling */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #3a82bc !important;
+  width: 40px !important;
+  height: 40px !important;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next {
+  right: 10px !important;
+}
+
+.swiper-button-prev {
+  left: 10px !important;
+}
+
+.swiper-button-next:after,
+.swiper-button-prev:after {
+  font-size: 20px !important;
+  font-weight: bold;
+}
+
+/* Add more space around the swiper container */
+.swiper {
+  padding: 0 40px !important;
+}
+
+/* Hover effects */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scale(1.1);
+  background: rgba(255, 255, 255, 1);
+}
