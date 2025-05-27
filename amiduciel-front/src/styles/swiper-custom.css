@@ -1,0 +1,21 @@
+/* Custom styles for Swiper pagination */
+.swiper-pagination {
+  position: relative !important;
+  margin-top: 2rem !important;
+  padding-top: 1.5rem !important;
+}
+
+/* Style for pagination bullets */
+.swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background-color: #3a82bc;
+  opacity: 0.5;
+  margin: 0 5px !important;
+}
+
+/* Style for active bullet */
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background-color: #3a82bc;
+}
