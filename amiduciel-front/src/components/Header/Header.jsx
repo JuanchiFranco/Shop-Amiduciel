@@ -86,11 +86,12 @@ export default function Navbar() {
                     >
                         Contáctanos
                     </a>
-                    <button 
+                    <a 
+                        href="/login" 
                         className="px-5 py-2.5 text-sm font-semibold text-white bg-cyan-600 rounded-full hover:bg-cyan-700 transition-colors duration-200 shadow-md hover:shadow-lg hover:shadow-cyan-100"
                     >
-                        Entrar
-                    </button>
+                        Login
+                    </a>
                 </div>
 
                 {/* Mobile menu button */}
