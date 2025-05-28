@@ -30,7 +30,7 @@ const NewsSection = () => {
                     <span className="inline-block px-4 py-2 mb-4 text-cyan-600 bg-cyan-100 rounded-full text-sm font-semibold">
                         Novedades
                     </span>
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 font-serif">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#004052] mb-4 font-serif">
                         Recién Agregados
                     </h1>
                     <div className="w-24 h-1.5 bg-cyan-400 mx-auto mb-6 rounded-full"></div>

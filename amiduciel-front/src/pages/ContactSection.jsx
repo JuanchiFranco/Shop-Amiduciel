@@ -13,7 +13,7 @@ const ContactSection = () => {
                     <span className="inline-block px-4 py-2 mb-4 text-cyan-600 bg-cyan-100 rounded-full text-sm font-semibold">
                         Contáctanos
                     </span>
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 font-serif">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#004052] mb-4 font-serif">
                         Hablemos
                     </h1>
                     <div className="w-24 h-1.5 bg-cyan-400 mx-auto mb-6 rounded-full"></div>
@@ -29,7 +29,7 @@ const ContactSection = () => {
                     <div className="relative bg-white bg-opacity-90 backdrop-blur-sm rounded-3xl shadow-2xl overflow-hidden border border-cyan-100">
                         <div className="flex flex-col lg:flex-row">
                             <div className="w-full lg:w-1/2 p-8 lg:p-12">
-                                <h2 className="text-3xl font-bold text-gray-900 mb-6 font-serif">Envíanos un mensaje</h2>
+                                <h2 className="text-3xl font-bold text-[#004052] mb-6 font-serif">Envíanos un mensaje</h2>
                                 <form className="space-y-6">
                                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                                         <div>
@@ -81,7 +81,7 @@ const ContactSection = () => {
                             </div>
 
                             <div className="w-full lg:w-1/2 bg-gradient-to-br from-cyan-50 to-cyan-100 p-8 lg:p-12">
-                                <h2 className="text-3xl font-bold text-gray-900 mb-8 font-serif">Información de Contacto</h2>
+                                <h2 className="text-3xl font-bold text-[#004052] mb-8 font-serif">Información de Contacto</h2>
                                 
                                 <div className="space-y-6">
                                     <div className="flex items-start">
@@ -89,7 +89,7 @@ const ContactSection = () => {
                                             <FaEnvelope className="h-6 w-6 text-cyan-500" />
                                         </div>
                                         <div className="ml-4">
-                                            <h3 className="text-lg font-semibold text-gray-900">Correo</h3>
+                                            <h3 className="text-lg font-semibold text-[#004052]">Correo</h3>
                                             <a href="mailto:Amiduciel20@gmail.com" className="mt-1 text-cyan-600 hover:underline">
                                                 Amiduciel20@gmail.com
                                             </a>
@@ -101,7 +101,7 @@ const ContactSection = () => {
                                             <FaPhoneAlt className="h-6 w-6 text-cyan-400" />
                                         </div>
                                         <div className="ml-4">
-                                            <h3 className="text-lg font-semibold text-gray-900">Teléfono</h3>
+                                            <h3 className="text-lg font-semibold text-[#004052]">Teléfono</h3>
                                             <a href="tel:+573216308707" className="mt-1 text-cyan-600 hover:underline">
                                                 +57 321 630 8707
                                             </a>
@@ -110,7 +110,7 @@ const ContactSection = () => {
                                 </div>
                                 
                                 <div className="mt-12 text-center">
-                                    <h3 className="text-lg font-semibold text-gray-900 mb-4">Síguenos</h3>
+                                    <h3 className="text-lg font-semibold text-[#004052] mb-4">Síguenos</h3>
                                     <div className="flex justify-center space-x-4">
                                         <a href="https://www.facebook.com/profile.php?id=100070841482444" className="bg-white bg-opacity-80 p-3 rounded-full text-cyan-600 hover:bg-white hover:text-cyan-700 transition duration-200 shadow-sm" target="_blank">
                                             <FaFacebook className="h-6 w-6" />

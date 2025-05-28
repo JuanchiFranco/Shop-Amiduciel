@@ -39,7 +39,7 @@ const AboutSection = () => {
                     <span className="inline-block px-4 py-2 mb-4 text-cyan-600 bg-cyan-100 rounded-full text-sm font-semibold">
                         Nuestro Equipo
                     </span>
-                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 font-serif">
+                    <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#004052] mb-4 font-serif">
                         Tejiendo Sonrisas
                     </h1>
                     <div className="w-24 h-1.5 bg-cyan-400 mx-auto mb-6 rounded-full"></div>
@@ -102,7 +102,7 @@ const AboutSection = () => {
                             <div className="w-full lg:w-3/5 p-8 lg:p-12 flex flex-col justify-center">
                                 <div className="relative">
                                     <span className="absolute -top-8 -left-8 text-7xl text-cyan-100 font-serif italic">"</span>
-                                    <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-4 font-serif">
+                                    <h2 className="text-3xl lg:text-4xl font-bold text-[#004052] mb-4 font-serif">
                                         {founders[activeFounder].name}
                                     </h2>
                                     <div className="w-16 h-1 bg-cyan-400 mb-6 rounded-full"></div>
