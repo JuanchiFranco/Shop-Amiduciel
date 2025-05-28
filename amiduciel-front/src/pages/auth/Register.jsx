@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUser, FaEnvelope, FaLock, FaArrowRight } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/useAuth';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,22 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
+    
+    const [error, setError] = useState('');
+    const { register, isAuthenticated, loading, error: authError } = useAuth();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigate('/');
+        }
+    }, [isAuthenticated, navigate]);
+
+    useEffect(() => {
+        if (authError) {
+            setError(authError);
+        }
+    }, [authError]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,12 +33,25 @@ const Register = () => {
             ...prev,
             [name]: value
         }));
+        // Clear error when user types
+        if (error) setError('');
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle registration logic here
-        console.log('Registration submitted:', formData);
+        
+        if (formData.password !== formData.confirmPassword) {
+            setError('Las contraseñas no coinciden');
+            return;
+        }
+
+        try {
+            await register(formData.name, formData.email, formData.password);
+            // The navigation will be handled by the useEffect
+        } catch (err) {
+            // Error is already handled by the useAuth hook
+            console.error('Registration error:', err);
+        }
     };
 
     return (
