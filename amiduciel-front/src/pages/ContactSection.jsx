@@ -102,7 +102,7 @@ const ContactSection = () => {
                                         </div>
                                         <div className="ml-4">
                                             <h3 className="text-lg font-semibold text-[#004052]">Teléfono</h3>
-                                            <a href="tel:+573216308707" className="mt-1 text-cyan-600 hover:underline">
+                                            <a href="https://wa.me/573216308707" className="mt-1 text-cyan-600 hover:underline">
                                                 +57 321 630 8707
                                             </a>
                                         </div>
@@ -118,7 +118,7 @@ const ContactSection = () => {
                                         <a href="https://www.instagram.com/ami_du_ciel/" className="bg-white bg-opacity-80 p-3 rounded-full text-cyan-600 hover:bg-white hover:text-cyan-700 transition duration-200 shadow-sm" target="_blank">
                                             <FaInstagram className="h-6 w-6" />
                                         </a>
-                                        <a href="https://wa.me/573136204943" className="bg-white bg-opacity-80 p-3 rounded-full text-cyan-600 hover:bg-white hover:text-cyan-700 transition duration-200 shadow-sm" target="_blank">
+                                        <a href="https://wa.me/573216308707" className="bg-white bg-opacity-80 p-3 rounded-full text-cyan-600 hover:bg-white hover:text-cyan-700 transition duration-200 shadow-sm" target="_blank">
                                             <FaWhatsapp className="h-6 w-6" />
                                         </a>
                                     </div>
