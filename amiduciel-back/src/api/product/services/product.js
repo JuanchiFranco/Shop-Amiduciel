@@ -9,14 +9,22 @@ module.exports = {
         try {
             let products = await strapi.documents('api::product.product').findMany(
                 {
-                    fields: ['id', 'name', 'price', 'cost', 'description'],
+                    fields: ['id', 'name', 'price', 'description'],
                     populate: {
-                        patern: {
-                            fields: ['id', 'url', 'name'],
-                        },
                         images: {
                             fields: ['id', 'url'],
-                        }, 
+                        },
+                        categories: {
+                            fields: ['id', 'name']
+                        },
+                        reviews: {
+                            fields: ['rating', 'comment'],
+                            populate: {
+                                user: {
+                                    fields: ['username']
+                                }
+                            }
+                        }
                     },
                     orderBy: {
                         createdAt: 'desc'

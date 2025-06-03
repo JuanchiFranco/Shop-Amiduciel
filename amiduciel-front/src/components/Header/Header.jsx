@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import { FiUser, FiLogOut, FiChevronDown } from 'react-icons/fi';
 import logo from '../../assets/amilogo.png'; // Adjust the path as necessary
@@ -8,7 +8,37 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
+    const location = useLocation();
+    const navigate = useNavigate();
     const { user, isAuthenticated, logout } = useAuth();
+
+    // Handle navigation to home page sections
+    const scrollToSection = (sectionId) => {
+        // If we're not on the home page, navigate there first
+        if (location.pathname !== '/') {
+            navigate(`/${sectionId ? `#${sectionId}` : ''}`);
+            // Small delay to ensure the page has loaded before scrolling
+            setTimeout(() => {
+                if (sectionId) {
+                    const element = document.getElementById(sectionId);
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            }, 10);
+        } else {
+            // If we're already on the home page, just scroll to the section
+            if (sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            } else {
+                // Scroll to top if no section is specified
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    };
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -73,9 +103,8 @@ export default function Navbar() {
                 </div>
                 
                 <div className="hidden md:flex items-center space-x-8">
-                    <a 
-                        href="#" 
-                        onClick={scrollToTop}
+                    <button
+                        onClick={() => scrollToSection('')}
                         className={`text-base font-medium transition-colors duration-200 ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
@@ -83,9 +112,9 @@ export default function Navbar() {
                         }`}
                     >
                         Inicio
-                    </a>
-                    <a 
-                        href="#news" 
+                    </button>
+                    <Link 
+                        to="/products"
                         className={`text-base font-medium transition-colors duration-200 ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
@@ -93,9 +122,9 @@ export default function Navbar() {
                         }`}
                     >
                         Comprar
-                    </a>
-                    <a 
-                        href="#about" 
+                    </Link>
+                    <button
+                        onClick={() => scrollToSection('about')}
                         className={`text-base font-medium transition-colors duration-200 ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
@@ -103,9 +132,9 @@ export default function Navbar() {
                         }`}
                     >
                         Sobre Nosotros
-                    </a>
-                    <a 
-                        href="#contact" 
+                    </button>
+                    <button
+                        onClick={() => scrollToSection('contact')}
                         className={`text-base font-medium transition-colors duration-200 ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
@@ -113,7 +142,7 @@ export default function Navbar() {
                         }`}
                     >
                         Contáctanos
-                    </a>
+                    </button>
                     {isAuthenticated ? (
                         <div className="relative" ref={dropdownRef}>
                             <button
