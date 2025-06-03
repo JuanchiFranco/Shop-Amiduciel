@@ -16,7 +16,10 @@ module.exports = {
                         },
                         images: {
                             fields: ['id', 'url'],
-                        }, 
+                        },
+                        categories: {
+                            fields: ['id', 'name']
+                        }
                     },
                     orderBy: {
                         createdAt: 'desc'
