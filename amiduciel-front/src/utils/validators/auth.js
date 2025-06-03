@@ -16,11 +16,11 @@ export const isValidEmail = (email) => {
  */
 export const validateLoginInput = (email, password) => {
   if (!email || !password) {
-    throw new Error('Email and password are required');
+    throw new Error('El correo electrónico y la contraseña son obligatorios');
   }
   
   if (!isValidEmail(email)) {
-    throw new Error('Please enter a valid email address');
+    throw new Error('Por favor ingresa un correo electrónico válido');
   }
 };
 
@@ -33,18 +33,18 @@ export const validateLoginInput = (email, password) => {
  */
 export const validateRegisterInput = (username, email, password) => {
   if (!username || !email || !password) {
-    throw new Error('All fields are required');
+    throw new Error('Todos los campos son obligatorios');
   }
   
   if (password.length < 6) {
-    throw new Error('Password must be at least 6 characters long');
+    throw new Error('La contraseña debe tener al menos 6 caracteres');
   }
   
   if (!isValidEmail(email)) {
-    throw new Error('Please enter a valid email address');
+    throw new Error('Por favor ingresa un correo electrónico válido');
   }
 
   if (username.length < 3) {
-    throw new Error('Username must be at least 3 characters long');
+    throw new Error('El nombre de usuario debe tener al menos 3 caracteres');
   }
 };
