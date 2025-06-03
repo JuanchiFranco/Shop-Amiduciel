@@ -47,7 +47,7 @@ export function useAuth() {
       setIsAuthenticated(true);
       return userData;
     } catch (err) {
-      setError(err.message || 'Login failed');
+      setError(err.message || 'Error al iniciar sesión. Verifica tus credenciales.');
       throw err;
     } finally {
       setLoading(false);
@@ -69,7 +69,7 @@ export function useAuth() {
       setIsAuthenticated(true);
       return userData;
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      setError(err.message || 'Error al registrar el usuario. Por favor, inténtalo de nuevo.');
       throw err;
     } finally {
       setLoading(false);

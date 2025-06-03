@@ -33,22 +33,62 @@ apiClient.interceptors.response.use(
       let errorMessage = 'An error occurred';
       
       if (data?.error?.message) {
-        errorMessage = data.error.message;
+        // Traducir mensajes de error comunes de la API
+        const errorMessages = {
+          // Errores de autenticación
+          'Invalid identifier or password': 'Correo o contraseña incorrectos',
+          'Email or Username are required': 'El correo electrónico es obligatorio',
+          'Password is required': 'La contraseña es obligatoria',
+          'Email already taken': 'Este correo electrónico ya está registrado',
+          'Username already taken': 'Este nombre de usuario ya está en uso',
+          'Too many requests, please try again later.': 'Demasiados intentos. Por favor, inténtalo de nuevo más tarde.',
+          'Registration not allowed': 'El registro no está permitido',
+          'Invalid login credentials': 'Credenciales de inicio de sesión inválidas',
+          'User not found': 'Usuario no encontrado',
+          'User not confirmed': 'Usuario no confirmado',
+          'User is blocked': 'Usuario bloqueado',
+          'Invalid token': 'Token inválido o expirado',
+          'Token expired': 'Token expirado',
+          'Token invalid': 'Token inválido',
+          'Token not found': 'Token no encontrado',
+          'Token not provided': 'Token no proporcionado',
+          'Token revoked': 'Token revocado',
+          'Token expired': 'Token expirado',
+          // Errores de validación
+          'ValidationError': 'Error de validación',
+          'Invalid params': 'Parámetros inválidos',
+          'Missing params': 'Faltan parámetros requeridos',
+          'Invalid email': 'Correo electrónico inválido',
+          'Email already exists': 'El correo electrónico ya está registrado',
+          'Username already exists': 'El nombre de usuario ya está en uso',
+          'Password too short': 'La contraseña es demasiado corta',
+          'Password too weak': 'La contraseña es demasiado débil',
+          'Passwords do not match': 'Las contraseñas no coinciden',
+          // Errores del servidor
+          'Internal server error': 'Error interno del servidor',
+          'Service unavailable': 'Servicio no disponible',
+          'Request timeout': 'Tiempo de espera agotado',
+          'Network error': 'Error de red',
+          'Network request failed': 'Fallo en la solicitud de red'
+        };
+        
+        // Buscar el mensaje traducido o usar el mensaje original
+        errorMessage = errorMessages[data.error.message] || data.error.message;
       } else if (status === 401) {
-        errorMessage = 'Invalid credentials';
-        // Optionally redirect to login or clear auth state
+        errorMessage = 'No autorizado. Por favor, inicia sesión nuevamente.';
+        // Limpiar el token de autenticación
         localStorage.removeItem('authToken');
       } else if (status === 400) {
-        errorMessage = 'Invalid request';
+        errorMessage = 'Solicitud incorrecta. Verifica los datos enviados.';
       } else if (status >= 500) {
-        errorMessage = 'Server error. Please try again later.';
+        errorMessage = 'Error interno del servidor. Por favor, inténtalo de nuevo más tarde.';
       }
       
       const errorWithMessage = new Error(errorMessage);
       errorWithMessage.status = status;
       return Promise.reject(errorWithMessage);
     } else if (error.request) {
-      return Promise.reject(new Error('No response from server. Please check your connection.'));
+      return Promise.reject(new Error('No se pudo conectar con el servidor. Por favor, verifica tu conexión a internet.'));
     }
     return Promise.reject(error);
   }
