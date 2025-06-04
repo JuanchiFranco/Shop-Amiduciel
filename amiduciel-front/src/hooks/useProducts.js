@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react';
-import { getProducts, getNewProducts } from '../services/products';
+import React, { useState, useEffect, useCallback } from 'react';
+import productService from '../api/services/products/productService';
 
 export function useProducts() {
     const [products, setProducts] = useState([]);
+    const [newProducts, setNewProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const productsData = await getProducts();
-                setProducts(productsData);
+                setLoading(true);
+                const allProducts = await productService.getAllProducts();
+                setProducts(allProducts);
             } catch (err) {
-                setError(err);
+                setError(err.message || 'Error fetching products');
             } finally {
                 setLoading(false);
             }
@@ -20,22 +22,15 @@ export function useProducts() {
 
         fetchProducts();
     }, []);
-
-    return { products, loading, error };
-}
-
-export function useNewProducts() {
-    const [newProducts, setNewProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-
+    
     useEffect(() => {
         const fetchNewProducts = async () => {
             try {
-                const newProductsData = await getNewProducts();
-                setNewProducts(newProductsData);
+                setLoading(true);
+                const newProds = await productService.getNewProducts();
+                setNewProducts(newProds);
             } catch (err) {
-                setError(err);
+                setError(err.message || 'Error fetching new products');
             } finally {
                 setLoading(false);
             }
@@ -44,5 +39,24 @@ export function useNewProducts() {
         fetchNewProducts();
     }, []);
 
-    return { newProducts, loading, error };
+    const getProductByIdDocument = React.useCallback(async (idDocument) => {
+        if (!idDocument) {
+            throw new Error('ID de documento no proporcionado');
+        }
+        try {
+            const product = await productService.getProductByIdDocument(idDocument);
+            return product;
+        } catch (err) {
+            console.error('Error en getProductByIdDocument:', err);
+            throw err;
+        }
+    }, []);
+
+    return {
+        products,
+        newProducts,
+        loading,
+        error,
+        getProductByIdDocument
+    };
 }

@@ -5,6 +5,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import Products from './pages/Products';
+import ProductDetail from './pages/ProductDetail';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="home" element={<Navigate to="/" replace />} />
         </Route>
         <Route path="/products" element={<Products />} />
+        <Route path="/products/:idDocument" element={<ProductDetail />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="*" element={<NotFoundPage />} />
