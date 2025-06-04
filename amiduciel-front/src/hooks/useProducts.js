@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import productService from '../api/services/products/productService';
 
 export function useProducts() {
@@ -39,18 +39,18 @@ export function useProducts() {
         fetchNewProducts();
     }, []);
 
-    const getProductByIdDocument = async (idDocument) => {
+    const getProductByIdDocument = React.useCallback(async (idDocument) => {
+        if (!idDocument) {
+            throw new Error('ID de documento no proporcionado');
+        }
         try {
-            setLoading(true);
             const product = await productService.getProductByIdDocument(idDocument);
             return product;
         } catch (err) {
-            setError(err.message || 'Error fetching product by ID document');
+            console.error('Error en getProductByIdDocument:', err);
             throw err;
-        } finally {
-            setLoading(false);
         }
-    };
+    }, []);
 
     return {
         products,

@@ -33,10 +33,18 @@ const productService = {
      * @returns {Promise<Object>} Product data
      */
     async getProductByIdDocument(idDocument) {
+        if (!idDocument) {
+            throw new Error('ID de documento no proporcionado');
+        }
         try {
             const response = await apiClient.get(`/api/products/${idDocument}`);
+            // Asegurarse de que la respuesta tenga datos
+            if (!response.data) {
+                throw new Error('No se encontraron datos del producto');
+            }
             return response.data;
         } catch (error) {
+            console.error('Error en getProductByIdDocument:', error);
             throw error;
         }
     }

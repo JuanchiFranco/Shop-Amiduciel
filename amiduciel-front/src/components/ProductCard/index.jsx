@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getImageUrl } from '../../utils';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 
 const ProductCard = ({ product }) => {
-    const { id, name, description, price, images, reviews } = product;
+    const { id, documentId, name, description, price, images, reviews } = product;
 
     const renderStars = () => {
         const hasReviews = reviews && reviews.length > 0;
@@ -22,24 +23,28 @@ const ProductCard = ({ product }) => {
     };
 
     return (
-        <div key={id} className="bg-white border border-gray-300 rounded-lg p-4 w-full h-full text-center shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
-            {images && images.length > 0 ? (
-                <div className="h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
-                    <img
-                        src={getImageUrl(images[0].url)}
-                        alt={name}
-                        className="max-h-full max-w-full object-contain p-2"
-                    />
-                </div>
-            ) : (
-                <div className="w-full rounded-lg mb-4 h-48 bg-gray-200 flex items-center justify-center">
-                    <span className="text-gray-500">No Image Available</span>
-                </div>
-            )}
+        <div className="bg-white border border-gray-300 rounded-lg p-4 w-full h-full text-center shadow-sm hover:shadow-lg transition-shadow duration-300 flex flex-col">
+            <Link to={`/products/${documentId}`} className="block">
+                {images && images.length > 0 ? (
+                    <div className="h-48 flex items-center justify-center overflow-hidden rounded-lg mb-4 bg-gray-100">
+                        <img
+                            src={getImageUrl(images[0].url)}
+                            alt={name}
+                            className="max-h-full max-w-full object-contain p-2"
+                        />
+                    </div>
+                ) : (
+                    <div className="w-full rounded-lg mb-4 h-48 bg-gray-200 flex items-center justify-center">
+                        <span className="text-gray-500">No Image Available</span>
+                    </div>
+                )}
+            </Link>
 
             <div className="flex-1 flex flex-col justify-between">
                 <div className="overflow-hidden">
-                    <h3 className="text-lg font-semibold mb-2 line-clamp-2" title={name}>{name}</h3>
+                    <Link to={`/products/${documentId}`} className="hover:text-cyan-600 transition-colors">
+                        <h3 className="text-lg font-semibold mb-2 line-clamp-2" title={name}>{name}</h3>
+                    </Link>
                     <p className="text-gray-600 text-sm line-clamp-3 mb-2" title={description}>{description}</p>
                 </div>
 
