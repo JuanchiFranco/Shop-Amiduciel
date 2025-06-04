@@ -55,6 +55,14 @@ module.exports = {
                         images: {
                             fields: ['id', 'url'],
                         }, 
+                        reviews: {
+                            fields: ['rating', 'comment'],
+                            populate: {
+                                user: {
+                                    fields: ['username']
+                                }
+                            }
+                        }
                     },
                     orderBy: {
                         createdAt: 'desc'

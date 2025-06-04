@@ -12,10 +12,10 @@ import '../styles/swiper-custom.css';
 import newsImg from '../assets/news.jpg'
 import ProductCard from '../components/ProductCard';
 
-import { useNewProducts } from '../hooks/useProducts';
+import { useProducts } from '../hooks/useProducts';
 
 const NewsSection = () => {
-    const { newProducts, loading, error } = useNewProducts();
+    const { newProducts, loading, error } = useProducts();
     
     return (
         <section
