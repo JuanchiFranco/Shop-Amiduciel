@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useProducts } from '../hooks/useProducts';
+import { useAuth } from '../hooks/useAuth';
+import { useReview } from '../hooks/useReview';
 import { FaStar, FaRegStar, FaStarHalfAlt, FaArrowLeft } from 'react-icons/fa';
 import { getImageUrl } from '../utils';
 
@@ -8,10 +10,15 @@ const ProductDetail = () => {
     const { idDocument } = useParams();
     const navigate = useNavigate();
     const { getProductByIdDocument } = useProducts();
+    const { isAuthenticated, user } = useAuth();
+    const { saveReview, loading: isSubmitting, error: reviewError } = useReview();
     const [product, setProduct] = useState(null);
     const [mainImage, setMainImage] = useState('');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [reviewRating, setReviewRating] = useState(5);
+    const [reviewComment, setReviewComment] = useState('');
+    const [reviewSuccess, setReviewSuccess] = useState('');
 
     useEffect(() => {
         let isMounted = true;
@@ -58,12 +65,8 @@ const ProductDetail = () => {
         };
     }, [idDocument, getProductByIdDocument]);
 
-    const renderStars = (reviews) => {
-        if (!reviews || reviews.length === 0) return null;
-        
-        const rating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    const renderStars = (rating) => {
         const stars = [];
-        
         for (let i = 0; i < 5; i++) {
             if (rating >= i + 1) {
                 stars.push(<FaStar key={i} className="text-yellow-400" />);
@@ -73,17 +76,64 @@ const ProductDetail = () => {
                 stars.push(<FaRegStar key={i} className="text-gray-300" />);
             }
         }
+        return stars;
+    };
+
+    const renderRatingStars = (reviews) => {
+        if (!reviews || reviews.length === 0) return null;
+        
+        const rating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
         
         return (
             <div className="flex items-center mt-1">
                 <div className="flex">
-                    {stars}
+                    {renderStars(rating)}
                 </div>
                 <span className="text-gray-600 text-sm ml-2">
                     ({reviews.length} {reviews.length === 1 ? 'reseña' : 'reseñas'})
                 </span>
             </div>
         );
+    };
+
+    const handleReviewSubmit = async (e) => {
+        e.preventDefault();
+        
+        if (!reviewComment.trim()) {
+            return;
+        }
+        
+        try {
+            const productId = product.id || product._id;
+            
+            if (!productId) {
+                throw new Error('No se pudo obtener el ID del producto');
+            }
+            
+            await saveReview({
+                productId: productId,
+                rating: reviewRating,
+                comment: reviewComment
+            });
+            
+            // Refresh product data to get the latest reviews
+            const updatedProduct = await getProductByIdDocument(idDocument);
+            setProduct(updatedProduct);
+            
+            setReviewSuccess('¡Gracias por tu reseña!');
+            setReviewComment('');
+            setReviewRating(5);
+            
+            // Clear success message after 3 seconds
+            setTimeout(() => setReviewSuccess(''), 3000);
+        } catch (err) {
+            console.error('Error submitting review:', err);
+            // Error is already handled by the useReview hook
+        }
+    }; 
+    
+    const handleRatingChange = (rating) => {
+        setReviewRating(rating);
     };
 
     if (loading) {
@@ -162,7 +212,7 @@ const ProductDetail = () => {
                         <div className="md:w-1/2 p-6 border-t md:border-t-0 md:border-l border-gray-200">
                             <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
                             
-                            {product.reviews && product.reviews.length > 0 && renderStars(product.reviews)}
+                            {product.reviews && product.reviews.length > 0 && renderRatingStars(product.reviews)}
                             
                             <div className="mt-6">
                                 <span className="text-3xl font-bold text-gray-900">
@@ -208,32 +258,95 @@ const ProductDetail = () => {
                     </div>
                     
                     {/* Reviews Section */}
-                    {product.reviews && product.reviews.length > 0 && (
-                        <div className="border-t border-gray-200 p-6">
-                            <h2 className="text-xl font-bold text-gray-900 mb-6">Opiniones de clientes</h2>
+                    <div className="border-t border-gray-200 p-6">
+                        <h2 className="text-xl font-bold text-gray-900 mb-6">Opiniones de clientes</h2>
+                        
+                        {/* Review Form for Authenticated Users */}
+                        {isAuthenticated && (
+                            <div className="mb-8 p-6 bg-gray-50 rounded-lg">
+                                <h3 className="text-lg font-medium text-gray-900 mb-4">Escribe una reseña</h3>
+                                {reviewSuccess && (
+                                    <div className="mb-4 p-3 bg-green-100 text-green-700 rounded-md">
+                                        {reviewSuccess}
+                                    </div>
+                                )}
+                                {reviewError && (
+                                    <div className="mb-4 p-3 bg-red-100 text-red-700 rounded-md">
+                                        {reviewError}
+                                    </div>
+                                )}
+                                <form onSubmit={handleReviewSubmit}>
+                                    <div className="mb-4">
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Calificación
+                                        </label>
+                                        <div className="flex items-center">
+                                            {[1, 2, 3, 4, 5].map((star) => (
+                                                <button
+                                                    key={star}
+                                                    type="button"
+                                                    onClick={() => handleRatingChange(star)}
+                                                    className="focus:outline-none"
+                                                >
+                                                    {star <= reviewRating ? (
+                                                        <FaStar className="text-yellow-400 text-2xl" />
+                                                    ) : (
+                                                        <FaRegStar className="text-gray-400 text-2xl" />
+                                                    )}
+                                                </button>
+                                            ))}
+                                            <span className="ml-2 text-sm text-gray-500">
+                                                {reviewRating} de 5 estrellas
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="mb-4">
+                                        <label htmlFor="comment" className="block text-sm font-medium text-gray-700 mb-2">
+                                            Comentario
+                                        </label>
+                                        <textarea
+                                            id="comment"
+                                            rows="4"
+                                            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-cyan-500 focus:border-cyan-500"
+                                            placeholder="¿Qué te pareció el producto?"
+                                            value={reviewComment}
+                                            onChange={(e) => setReviewComment(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="px-4 py-2 bg-cyan-600 text-white rounded-md hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-50"
+                                    >
+                                        {isSubmitting ? 'Enviando...' : 'Enviar reseña'}
+                                    </button>
+                                </form>
+                            </div>
+                        )}
+                        
+                        {/* Existing Reviews */}
+                        {product.reviews && product.reviews.length > 0 ? (
                             <div className="space-y-6">
                                 {product.reviews.map((review, index) => (
                                     <div key={index} className="border-b border-gray-200 pb-6 last:border-b-0 last:pb-0">
                                         <div className="flex items-center mb-2">
                                             <div className="flex">
-                                                {[...Array(5)].map((_, i) => (
-                                                    i < review.rating ? (
-                                                        <FaStar key={i} className="text-yellow-400" />
-                                                    ) : (
-                                                        <FaRegStar key={i} className="text-gray-300" />
-                                                    )
-                                                ))}
+                                                {renderStars(review.rating)}
                                             </div>
                                             <span className="ml-2 text-sm font-medium text-gray-900">
-                                                {review.user[0]?.username || 'Anónimo'}
+                                                {review?.user?.username || 
+                                                 (Array.isArray(review?.user) ? (review.user[0]?.username || 'Anónimo') : 'Anónimo')}
                                             </span>
                                         </div>
                                         <p className="text-gray-600">{review.comment}</p>
                                     </div>
                                 ))}
                             </div>
-                        </div>
-                    )}
+                        ) : (
+                            <p className="text-gray-500">Aún no hay reseñas para este producto.</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>

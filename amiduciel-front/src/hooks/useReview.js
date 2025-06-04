@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import reviewService from '../api/services/review/reviewService';
+import reviewService from '../api/services/products/reviewService';
 
 export function useReview() {
     const [loading, setLoading] = useState(false);
