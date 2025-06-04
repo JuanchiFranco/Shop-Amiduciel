@@ -199,9 +199,9 @@ const ProductDetail = () => {
                             <div className="mt-8">
                                 <button
                                     className="w-full bg-cyan-600 text-white py-3 px-6 rounded-md font-medium hover:bg-cyan-700 transition-colors"
-                                    onClick={() => console.log('Agregar al carrito')}
+                                    onClick={() => {}}
                                 >
-                                    Agregar al carrito
+                                    Comprar
                                 </button>
                             </div>
                         </div>
@@ -225,7 +225,7 @@ const ProductDetail = () => {
                                                 ))}
                                             </div>
                                             <span className="ml-2 text-sm font-medium text-gray-900">
-                                                {review.user?.username || 'Anónimo'}
+                                                {review.user[0]?.username || 'Anónimo'}
                                             </span>
                                         </div>
                                         <p className="text-gray-600">{review.comment}</p>
