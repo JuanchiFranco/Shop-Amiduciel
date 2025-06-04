@@ -15,6 +15,14 @@ module.exports = {
             config: {
                 auth: false
             }
+        },
+        {
+            method: 'GET',
+            path: '/products/:idDocument',
+            handler: 'product.findByIdDocument',
+            config: {
+                auth: false
+            }
         }
     ]
 }

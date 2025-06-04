@@ -69,5 +69,39 @@ module.exports = {
             throw new Error('Error del servidor al obtener los productos nuevos');
         }
             
+    },
+
+    async findByIdDocument(idDocument, query) {
+        try {
+            let product = await strapi.documents('api::product.product').findOne(
+                {
+                    
+                    documentId: idDocument,
+                    
+                    fields: ['id', 'name', 'price', 'description'],
+                    populate: {
+                        images: {
+                            fields: ['id', 'url'],
+                        },
+                        categories: {
+                            fields: ['id', 'name']
+                        },
+                        reviews: {
+                            fields: ['rating', 'comment'],
+                            populate: {
+                                user: {
+                                    fields: ['username']
+                                }
+                            }
+                        }
+                    }
+                }
+            );
+
+            return product;
+        } catch (error) {
+            console.error('Error fetching product by ID document:', error);
+            throw new Error('Error del servidor al obtener el producto por ID de documento');
+        }
     }
 }
