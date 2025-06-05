@@ -6,7 +6,7 @@ const reviewService = {
         try {
             const response = await apiClient.post('/api/reviews', reviewData, {
                 headers: {
-                    bearer: localStorage.getItem('token') || '',
+                    Authorization: localStorage.getItem('token') ? 'Bearer ' + localStorage.getItem('token') : '',
                 },
             });
             return response.data;
