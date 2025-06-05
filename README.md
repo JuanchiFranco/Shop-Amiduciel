@@ -1,6 +1,8 @@
-# ShopAmiduciel
-
-![Logo de Amiduciel](amiduciel-front/src/assets/amilogo.png)
+<div align="center">
+  <img src="amiduciel-front/src/assets/amilogo.png" alt="Logo de Amiduciel" width="200"/>
+  
+  # ShopAmiduciel
+</div>
 
 Plataforma de comercio electrónico para Amiduciel, con un frontend moderno en React y un backend en Strapi (CMS headless).
 
