@@ -138,7 +138,7 @@ const Home = () => {
             </div>
             
             {/* Styles for animations */}
-            <style jsx>{`
+            <style jsx={"true"}>{`
                 @keyframes float {
                     0% { transform: translateY(0) translateX(0); opacity: 0; }
                     10% { opacity: 1; }
