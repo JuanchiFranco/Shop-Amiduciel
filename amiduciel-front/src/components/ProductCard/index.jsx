@@ -63,9 +63,14 @@ const ProductCard = ({ product }) => {
                     </div>
                 </div>
 
-                <button className="mt-4 w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition">
+                <a 
+                    href={`https://wa.me/573216308707?text=Hola%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(name)}%0APrecio:%20${encodeURIComponent(new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(price))}%0A%0APor%20favor%20necesito%20más%20información.`}
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="mt-4 w-full bg-cyan-500 text-white py-2 px-4 rounded-lg hover:bg-cyan-600 transition text-center block"
+                >
                     Comprar
-                </button>
+                </a>
             </div>
         </div>
     );
