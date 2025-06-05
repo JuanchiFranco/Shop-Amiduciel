@@ -91,21 +91,21 @@ export default function Navbar() {
         >
             <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
                 <div className="flex items-center">
-                    <a href="#" onClick={scrollToTop} className="cursor-pointer">
+                    <Link to="/" className="cursor-pointer">
                         <img 
                             src={logo} 
                             alt="Logo" 
-                            className={`h-14 w-auto transition-all duration-300 ${
+                            className={`w-auto transition-all duration-300 ${
                                 scrolled ? 'h-12' : 'h-14'
                             }`} 
                         />
-                    </a>
+                    </Link>
                 </div>
                 
                 <div className="hidden md:flex items-center space-x-8">
                     <button
                         onClick={() => scrollToSection('')}
-                        className={`text-base font-medium transition-colors duration-200 ${
+                        className={`text-base font-medium transition-colors duration-200 cursor-pointer ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
                                 : 'text-gray-800 hover:text-cyan-600'
@@ -115,7 +115,7 @@ export default function Navbar() {
                     </button>
                     <Link 
                         to="/products"
-                        className={`text-base font-medium transition-colors duration-200 ${
+                        className={`text-base font-medium transition-colors duration-200 cursor-pointer ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
                                 : 'text-gray-800 hover:text-cyan-600'
@@ -125,7 +125,7 @@ export default function Navbar() {
                     </Link>
                     <button
                         onClick={() => scrollToSection('about')}
-                        className={`text-base font-medium transition-colors duration-200 ${
+                        className={`text-base font-medium transition-colors duration-200 cursor-pointer ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
                                 : 'text-gray-800 hover:text-cyan-600'
@@ -135,7 +135,7 @@ export default function Navbar() {
                     </button>
                     <button
                         onClick={() => scrollToSection('contact')}
-                        className={`text-base font-medium transition-colors duration-200 ${
+                        className={`text-base font-medium transition-colors duration-200 cursor-pointer ${
                             scrolled 
                                 ? 'text-gray-700 hover:text-cyan-600' 
                                 : 'text-gray-800 hover:text-cyan-600'
